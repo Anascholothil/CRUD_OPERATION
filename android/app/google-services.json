@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "983048053918",
+    "project_id": "amircrud",
+    "storage_bucket": "amircrud.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983048053918:android:1fa1e39f3654e52ec4878f",
+        "android_client_info": {
+          "package_name": "com.example.amirvendi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBE7N18gj-HcfqyhVj-wpmVYgUhXDxjxs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
