@@ -20,31 +20,39 @@ class Amirprovider extends ChangeNotifier {
     map["NAME"] = employeenameController.text;
     map["PHONE"] = employeephoneController.text;
     
-    if(from=="NEW"){
-      map["EMPLOYEE_ID"] = id;
-      
-    }
-    
-    if(from=="EDIT") {
-      db.collection("AMIRDETAILS").doc(oldid).update(map);
-    } else{
-        db.collection("AMIRDETAILS").doc(id).set(map);
-    }
+               if(from=="NEW") {
+                 map["EMPLOYEE_ID"] = id;
+               }
 
-    db.collection("AMIRDETAILS").doc(id).set(map).then((value) {
-      Fluttertoast.showToast(
-          msg: "smthng new!!!!!!!!!!",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
-    });
-    getemployeeDetails();
-    notifyListeners();
+               if(from=="EDIT"){
+                 db.collection("AMIRDETAILS").doc(oldid).update(map).then((value) {
+                   Fluttertoast.showToast(
+                       msg: "smthng old!!!!!!!!!!",
+                       toastLength: Toast.LENGTH_SHORT,
+                       gravity: ToastGravity.CENTER,
+                       timeInSecForIosWeb: 1,
+                       backgroundColor: Colors.red,
+                       textColor: Colors.white,
+                       fontSize: 16.0);
+                 });
 
-  }
+               }else{
+                 db.collection("AMIRDETAILS").doc(id).set(map).then((value) {
+                   Fluttertoast.showToast(
+                       msg: "smthng new!!!!!!!!!!",
+                       toastLength: Toast.LENGTH_SHORT,
+                       gravity: ToastGravity.CENTER,
+                       timeInSecForIosWeb: 1,
+                       backgroundColor: Colors.red,
+                       textColor: Colors.white,
+                       fontSize: 16.0);
+                 });
+
+               }
+               getemployeeDetails();
+           notifyListeners();
+
+        }
 
   List<modelClass> employelist = [];
 
@@ -86,7 +94,7 @@ class Amirprovider extends ChangeNotifier {
 notifyListeners();
   }
 
-  void playeredit(String id){
+  void playeredit(String id, ){
     db.collection('AMIRDETAILS').doc(id).get().then((value){
       if(value.exists){
         Map<dynamic,dynamic>map=value.data() as Map;

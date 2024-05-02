@@ -1,10 +1,13 @@
 import 'package:amirvendi/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class Detailspage extends StatelessWidget {
-  Detailspage({super.key});
+  String from;
+  String oldid;
+  Detailspage({super.key,required this.from,required this.oldid,});
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -45,8 +48,10 @@ class Detailspage extends StatelessWidget {
         return Form(
           key: formKey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -55,7 +60,7 @@ class Detailspage extends StatelessWidget {
                     child: Text(
                       'Name',
                       style: TextStyle(
-                        fontSize: 22,
+                        fontSize: 25,
                         fontWeight: FontWeight.w800,
                         color: Colors.pink,
                       ),
@@ -76,7 +81,7 @@ class Detailspage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 18.0),
                     child: TextField(
-                      keyboardType: TextInputType.number,
+
                       controller: value.employeenameController,
                       style: TextStyle(
                         color: Colors.grey,
@@ -95,7 +100,11 @@ class Detailspage extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 15,
+              ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -104,7 +113,7 @@ class Detailspage extends StatelessWidget {
                     child: Text(
                       'Phone',
                       style: TextStyle(
-                          fontSize: 22,
+                          fontSize: 25,
                           fontWeight: FontWeight.w800,
                           color: Colors.cyanAccent),
                     ),
@@ -124,6 +133,9 @@ class Detailspage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 18.0),
                     child: TextFormField(
+                      inputFormatters: [LengthLimitingTextInputFormatter(10)],
+                      keyboardType: TextInputType.number,
+                      // maxLength: 10,
                       controller: value.employeephoneController,
                       style: TextStyle(
                         color: Colors.grey,
@@ -182,20 +194,29 @@ class Detailspage extends StatelessWidget {
               //     // ),
               //   ),
               // ),
-              Consumer<Amirprovider>(builder: (context, value, child) {
-                return ElevatedButton(
-                    onPressed: () {
-                      value.addData();
-                      value.getemployeeDetails();
-                      formKey.currentState!.reset();
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.flight_land,
-                      size: 30,
-                      color: Colors.pinkAccent,
-                    ));
-              }),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 18.0),
+                child: Consumer<Amirprovider>(builder: (context, value, child) {
+                  return ElevatedButton(
+                      onPressed: () {
+                        if(from=="NEW"){
+                          value.addData(from,"");
+                          value.getemployeeDetails();
+                        }else{
+                          value.addData(from,oldid);
+                          value.getemployeeDetails();
+                        }
+
+                        formKey.currentState!.reset();
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.flight_land,
+                        size: 30,
+                        color: Colors.pinkAccent,
+                      ));
+                }),
+              ),
             ],
           ),
         );
